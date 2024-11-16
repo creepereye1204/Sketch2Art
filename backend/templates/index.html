@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Image Generation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/index.css') }}"
+    />
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>스케치를 그림으로</h1>
+      <small>모든 언어 지원!</small>
+      <form>
+        <label
+          for="file-input"
+          class="file-input-label"
+          id="file-input-background"
+        >
+          <i class="fas fa-upload" id="file-input-font"
+            >이미지 선택 하기 (카메라 or 갤러리)</i
+          >
+        </label>
+        <input
+          type="file"
+          id="file-input"
+          name="file"
+          accept="image/*"
+          style="display: none"
+        />
+        <div class="style-select-container">
+          <select id="style-select" name="style">
+            {% for style_name in style_names %}
+            <option value="{{ style_name }}">{{ style_name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <input
+          type="text"
+          name="prompt"
+          placeholder="이렇게 만들어 주세요!      ex) 고양이 2, 책장"
+        />
+        <input
+          type="text"
+          name="negative_prompt"
+          placeholder="이건 없었으면 좋겠어요!   ex) 사람"
+        />
+        <button type="submit">Upload</button>
+      </form>
+
+      <div id="progress-bar-container">
+        <div id="progress-bar"></div>
+        <div id="progress-text"></div>
+      </div>
+      <div id="result"></div>
+    </div>
+  </body>
+</html>
